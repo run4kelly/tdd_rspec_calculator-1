@@ -1,27 +1,60 @@
-class Calculator   
-  def add(num1=0, num2=0)
-    num1.to_f + num2.to_f
+require 'debugger'
+class Calculator
+  def initialize
+    @total = 0
   end
 
-  def subtract(num1=0, num2=0)
-    num1.to_f - num2.to_f
+  def total
+    @total
   end
 
-  def multiply(num1=0, num2=0)
-    num1.to_f * num2.to_f
+  def add(*numbers)
+    numbers.each do |number|
+      next unless [Fixnum, Float].include?(number.class)
+      @total += number
+    end
+    self
   end
 
-  def divide(num1=0, num2=1)
-    denom = num2.to_f
-    raise "Denominator can not be zero!" if denom == 0
-    num1.to_f / denom
+  def subtract(*numbers)
+    numbers.each do |number|
+      next unless [Fixnum, Float].include?(number.class)
+      @total -= number
+    end
+    self
+  end
+
+  def multiply(*numbers)
+    numbers.each do |number|
+      next unless [Fixnum, Float].include?(number.class)
+      # If total is currently zero, set the total to number
+      # otherwise multiply the total by number
+      #if @total == 0
+      #  @total = number
+      #else
+      #  @total *= number
+      #end
+      @total = @total == 0 ? number : @total * number
+    end
+    self
+  end
+
+  def divide(*numbers)
+    numbers.each do |number|
+      next unless [Fixnum, Float].include?(number.class)
+      next if number == 0
+      @total = @total == 0 ? number : @total / number.to_f
+    end
+    self
   end
 
   def sqrt(num1=0)
-  	Math.sqrt(num1)
+  	@total = Math.sqrt(num1)
+    self
   end
 
   def clear(num1=0)
+    @total = 0
   end
 
 end
