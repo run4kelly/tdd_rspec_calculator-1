@@ -89,6 +89,45 @@ describe Calculator do
     @my_calculator.subtract(3.0, 5.0).should == -2
     @my_calculator.subtract(3.1, 5.0).should == -1.9
   end
+
+  it "should multiply two numbers" do
+    @my_calculator.multiply(2, 3).should == 6
+    @my_calculator.multiply(2, 3).should_not == 7
+  end  
+
+  it "should multiply a postive and a negative number" do       
+    @my_calculator.multiply(2, -3).should == -6
+    @my_calculator.multiply(2, -3).should_not == -7
+  end
+  
+  it "should multiply one number" do
+    @my_calculator.multiply(3).should == 0
+  end               
+  
+  it "should multiply no numbers" do
+    @my_calculator.multiply.should == 0
+  end   
+
+  it "should multiply good strings appropriately" do
+    @my_calculator.multiply('1', '2').should == 2
+  end
+
+  it "should multiply bad strings appropriately" do
+    @my_calculator.multiply('fire', 'truck').should == 0
+  end                                              
+  
+  it "should multiply one bad string" do
+    @my_calculator.multiply(5, 'fire').should == 0
+  end    
+
+  it "should multiply negative value and bad string" do
+    @my_calculator.multiply(-3, 'fire').should == 0
+  end                                          
+  
+  it "should multiply decimal numbers" do
+    @my_calculator.multiply(3.0, 5.0).should == 15
+    @my_calculator.multiply(3.1, 5.0).should == 15.5
+  end 
                        
 end
   
