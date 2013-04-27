@@ -64,6 +64,10 @@ describe Calculator do
     it "should subtract decimal numbers" do
       expect { subject.subtract(3.0, 5.0) }.to change { subject.total }.from(0).to(-8.0)
     end
+
+    it "is chainable" do
+      subject.subtract(5).should == subject
+    end
   end
 
   describe "#multiply" do
@@ -94,6 +98,11 @@ describe Calculator do
     it "should multiply decimal numbers" do
       expect { subject.multiply(3.0, 5.0) }.to change { subject.total }.from(0).to(15.0)
     end
+
+    it "is chainable" do
+      subject.multiply(5).should == subject
+    end
+
   end
 
   describe "#divide" do
@@ -133,17 +142,24 @@ describe Calculator do
     it "should divide decimal numbers" do
       expect { subject.divide(25.0, 5.0) }.to change { subject.total }.from(0).to(5.0)
     end
+
+    it "is chainable" do
+      subject.divide(5).should == subject
+    end
   end
 
   describe "#sqrt" do
     it "with an integer argument" do
-      expect{ subject.sqrt(9) }.to change{ subject.total }.from(0).to(3)
+      subject.add(9)
+      expect{ subject.sqrt }.to change{ subject.total }.from(9).to(3)
     end
     it "with a float argument" do
-      expect{ subject.sqrt(9.0) }.to change{ subject.total }.from(0).to(3)
+      subject.add(9.0)
+      expect{ subject.sqrt }.to change{ subject.total }.from(9.0).to(3)
     end
     it "returns float answers" do
-      expect{ subject.sqrt(3.1415 ** 2) }.to change{ subject.total }.from(0).to(3.1415)
+      subject.add(3.1415 ** 2)
+      expect{ subject.sqrt }.to change{ subject.total }.from(3.1415 ** 2).to(3.1415)
     end
     it "with no argument" do
       expect{ subject.sqrt }.to_not change{subject.total}
@@ -152,10 +168,35 @@ describe Calculator do
       subject.add(49)
       expect{ subject.sqrt }.to change{subject.total}.from(49).to(7)
     end
+    it "is chainable" do
+      subject.sqrt.should == subject
+    end
   end
 
-  it "should reset the calculator to zero " do
-    subject.clear.should == 0
+  describe "#clear" do
+    it "resets the total to zero" do
+      subject.add(50)
+      expect{ subject.clear }.to change{subject.total}.from(50).to(0)
+    end
+
+    it "is chainable" do
+      subject.clear.should == subject
+    end
+  end
+
+  describe "chainability rocks" do
+    it "just works" do
+      expect{
+        subject.add(5).subtract(3)
+        subject.multiply(5).divide(4)
+        subject.sqrt.clear
+      }.to_not change{subject.total}
+
+      expect{
+        subject.add(25).subtract(5)
+        subject.multiply(4).divide(10).add(73).sqrt.add(1)
+      }.to change{ subject.total }.from(0).to(10)
+    end
   end
 end
   

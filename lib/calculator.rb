@@ -48,13 +48,14 @@ class Calculator
     self
   end
 
-  def sqrt(num1=0)
-  	@total = Math.sqrt(num1)
+  def sqrt
+  	@total = Math.sqrt(@total)
     self
   end
 
-  def clear(num1=0)
+  def clear
     @total = 0
+    self
   end
 
 end
