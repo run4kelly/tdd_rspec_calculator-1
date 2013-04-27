@@ -167,5 +167,13 @@ describe Calculator do
     @my_calculator.divide(10.0, 5.0).should == 2
     @my_calculator.divide(15.5, 5.0).should == 3.1
   end
+
+  it "should return the square root" do
+    @my_calculator.sqrt(9).should == 3
+  end
+
+  it "should reset the calculator to zero " do
+    @my_calculator.clear.should == 0
+  end
 end
   
