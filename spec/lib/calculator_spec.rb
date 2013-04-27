@@ -127,7 +127,45 @@ describe Calculator do
   it "should multiply decimal numbers" do
     @my_calculator.multiply(3.0, 5.0).should == 15
     @my_calculator.multiply(3.1, 5.0).should == 15.5
+  end
+
+  it "should divide two numbers" do
+    @my_calculator.divide(4, 2).should == 2
+    @my_calculator.divide(4, 2).should_not == 3
+  end  
+
+  it "should divide a postive and a negative number" do       
+    @my_calculator.divide(4, -2).should == -2
+    @my_calculator.divide(4, -2).should_not == -3
+  end
+  
+  it "should divide one number" do
+    @my_calculator.divide(3).should == 3
   end 
-                       
+
+  it "should divide no numbers" do
+    @my_calculator.divide.should == 0
+  end   
+
+  it "should divide good strings appropriately" do
+    @my_calculator.divide('4', '2').should == 2
+  end
+
+  it "should handle bad strings appropriately" do
+    lambda {@my_calculator.divide('fire', 'truck')}.should raise_error
+  end                                              
+  
+  it "should handle one bad string" do
+    lambda {@my_calculator.divide(5, 'fire')}.should raise_error
+  end  
+  
+  it "should divide negative value and bad string" do
+    lambda {@my_calculator.divide(-3, 'fire')}.should raise_error
+  end                                          
+  
+  it "should divide decimal numbers" do
+    @my_calculator.divide(10.0, 5.0).should == 2
+    @my_calculator.divide(15.5, 5.0).should == 3.1
+  end
 end
   
